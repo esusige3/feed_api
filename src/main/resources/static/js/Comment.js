@@ -21,7 +21,7 @@ var deleteCookie = function(name) {
 }
 
 
-출처: https://thereclub.tistory.com/59 [강남부자]
+
 function writeComment() {
     let object = new Object();
     object

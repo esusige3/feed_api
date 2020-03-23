@@ -21,8 +21,24 @@ var deleteCookie = function(name) {
 }
 
 
+async  function FeedList(){
+    try{
+        let response = await $.get('/');
+        // $('#comments-list').html(JSON.stringify(response));
+        for(let i=0;i<response.length;i++){
+           //printedComments(response[i]);
+            console.log(JSON.stringify(response[i]));
 
-function writeComment() {
-    let object = new Object();
-    object
+        }
+    }catch (e) {
+        $('#comments-list').html(JSON.stringify(e));
+    }
+}
+
+FeedList();
+async function FeedDtail() {
+
+
+
+
 }

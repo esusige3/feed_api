@@ -17,20 +17,22 @@ public class FeedLikeService implements IFeedLikeService {
     private FeedLikeRepository likeRepository;
 
     @Override
-    public boolean Like(Long feedId, Long userId) {
-
-        return false;
+    public FeedLike Like(Long feedId, Long userId) {
+        Like like = new Like(feedId,userId);
+        this.likeRepository.save(like);
+        return CountLike(feedId);
     }
 
     @Override
-    public boolean Dislike(Long feedId, Long userId) {
-        return false;
+    public FeedLike Dislike(Long feedId, Long userId) {
+        this.likeRepository.deleteByFeedIdAndUserId(feedId,userId);
+        return CountLike(feedId);
     }
 
     @Override
     public boolean CheckOwnLike(Long feedId, Long userId) {
-        Like feed = this.likeRepository.findById(feedId).orElse(null);
-        if(feed!=null){
+         Optional<Feed> feed = this.likeRepository.findByFeedIdAndUserId(feedId,userId);
+        if(feed.isPresent()){
             return true;
         }
         return false;
@@ -41,7 +43,6 @@ public class FeedLikeService implements IFeedLikeService {
         FeedLike feedLike = new FeedLike();
         feedLike.setLikeCount(this.likeRepository.countByFeedId(feedId));
         return feedLike;
-        //return new FeedLike().setCount(this.likeRepository.countByFeedId(feedId));
     }
 
 

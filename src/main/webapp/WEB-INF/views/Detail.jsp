@@ -2,43 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+
     <title>Title</title>
 </head>
 <body>
 <h1>Detail HERE</h1>
-    ${feed.id}
-    <div style="float: left">
-        <c:forEach items="${feed.MDImage}" var="image">
-            <img src="${image.url}"/>
-        </c:forEach>
-    </div>
-    <div style="float: left;">
-        ${feed.content}
-    </div>
-    <input type="checkbox" name="LikeCheck" value="yyy" checked>
 
-<hr>
+    <c:forEach items="${list}" var="feed"></c:forEach>
+    <h3><c:out value="${feed.text}"/></h3>
 
-    <div>
-        ID: <input type="text" style="width: 80px;">
-        댓글<input type="text">
-    </div>
-    <div id="commentRoot" style="float: left;">
-        <c:forEach items="${comment}" var="comment">
-            <div id="${comment.id}">
-                    ${comment.id}
-                    ${comment.userId}
-                        ${comment.text}
-                <hr/>
-            </div>
-        </c:forEach>
 
-    </div>
 
-    <div>
-        번호<input id="userId"><br>
-        댓글<input type="text" id="commentText">
-    </div>
 
+<script>
+
+
+
+</script>
 </body>
+
+
+
 </html>

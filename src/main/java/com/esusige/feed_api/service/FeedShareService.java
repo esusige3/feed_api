@@ -27,6 +27,7 @@ public class FeedShareService implements IFeedShareService {
     public FeedShared AddShare(Long feedId, Long userId){
             Share share = new Share(feedId,userId);
             feedShareRepository.save(share);
+            System.out.println("Facebook Shared!");
         return CountShare(feedId);
     }
 }

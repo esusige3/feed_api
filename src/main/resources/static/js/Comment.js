@@ -10,7 +10,7 @@ var setCookie = function(name, value, exp) {
 };
 
 
-출처: https://thereclub.tistory.com/59 [강남부자]
+
 var setCookie = function(name, value, exp) {
     var date = new Date();
     date.setTime(date.getTime() + exp*24*60*60*1000);

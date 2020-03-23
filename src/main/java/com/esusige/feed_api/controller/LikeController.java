@@ -12,12 +12,12 @@ public class LikeController {
     @Autowired
     private IFeedLikeService feedLikeService;
 
-    @PutMapping("/Like")
+    @PutMapping("/like")
     public FeedLike Like(@PathVariable Long feedId, @RequestParam Long userId){
         return this.feedLikeService.Like(feedId,userId);
     }
 
-    @DeleteMapping("/Dislike")
+    @DeleteMapping("/dislike")
     public FeedLike Dislike(@PathVariable Long feedId, @RequestParam Long userId){
         return  this.feedLikeService.Dislike(feedId,userId);
     }

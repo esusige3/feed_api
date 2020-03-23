@@ -56,7 +56,7 @@ public class FeedService implements IFeedService {
 
 
     @Override
-    public List<FeedDetail> ListAllFeeds() {
+    public List<FeedDetail> ListFeeds(int pageNo,int pageSize) {
         List<Feed> feedList = this.dao_feed.findAll();
         List<FeedDetail> dto_feedList = new ArrayList<>();
         feedList.forEach(feed -> {
@@ -66,7 +66,8 @@ public class FeedService implements IFeedService {
                     null,
                     this.feedCommentService.CountComment(feed.getId()).getCommentCount(),
                     this.feedShareService.CountShare(feed.getId()).getSharedCount(),
-                    this.feedLikeService.CountLike(feed.getId()).getLikeCount()));
+                    this.feedLikeService.CountLike(feed.getId()).getLikeCount(),
+                    feed.getUpdated()));
             System.out.println("Feed 처리");
         });
 
@@ -83,7 +84,8 @@ public class FeedService implements IFeedService {
                        this.feedLikeService.CheckOwnLike(feedId,userId),
                        this.feedCommentService.CountComment(feedId).getCommentCount(),
                        this.feedShareService.CountShare(feedId).getSharedCount(),
-                       this.feedLikeService.CountLike(feedId).getLikeCount());
+                       this.feedLikeService.CountLike(feedId).getLikeCount(),
+                       feed.getUpdated());
                return dto_feed;
            }
            return null;
@@ -95,6 +97,7 @@ public class FeedService implements IFeedService {
 
     @Override
     public boolean PostFeed(FeedDetail dto_feed) {
+
         return false;
     }
 

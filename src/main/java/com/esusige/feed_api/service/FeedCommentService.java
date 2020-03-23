@@ -33,7 +33,7 @@ public class FeedCommentService implements IFeedCommentService {
     @Override
     public boolean WriteComment(FeedComment feedComment,Long feedId) {
         try{
-            Comment comment = new Comment(feedComment.getUserId() ,feedId,feedComment.getText());
+            Comment comment = new Comment(feedComment.getUserId(),feedId,feedComment.getText());
 
              this.commentRepository.save(this.commentRepository.save(comment));
             return true;

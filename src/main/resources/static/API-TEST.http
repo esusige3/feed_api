@@ -1,0 +1,36 @@
+POST http://localhost:8080/Comment/write/34?userId=27
+Content-Type: application/json
+
+{
+  "text": "Wow Its odl one!"
+}
+
+###
+
+DELETE http://localhost:8080/Comment/delete?Id=33
+
+###
+
+GET http://localhost:8080/Comment/34
+
+###
+
+GET http://localhost:8080/Comment/count/32
+
+###
+
+GET http://localhost:8080/feed/
+
+###
+
+GET http://localhost:8080/init
+
+###
+
+PUT http://localhost:8080/feed/1/like?userId=38
+
+###
+
+GET http://localhost:8080/feed/1?userId=38
+
+###

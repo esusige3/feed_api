@@ -9,25 +9,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-
+@RestController
 @RequestMapping("feed/")
 public class FeedController {
 
     @Autowired
     private IFeedService feedService;
 
-    @GetMapping("/")
-    public String FeedList(Model model,@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,@RequestParam(value = "pageSize",defaultValue = "0")int pageSize){
-        List<FeedDetail> feedList = this.feedService.ListAllFeeds();
-        model.addAttribute("list",feedList);
-        return "Feed";
+    @GetMapping("")
+    public List<FeedDetail> FeedList(Model model,@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,@RequestParam(value = "pageSize",defaultValue = "0")int pageSize){
+
+        return this.feedService.ListFeeds(pageNo,pageSize);
     }
     @GetMapping("/{feedId}")
-    public String FeedDetail(@PathVariable Long feedId,@RequestParam("userId") Long userId, Model model){
-        FeedDetail feedDetail = this.feedService.GetDetail(feedId,userId);
-        model.addAttribute("feed",feedDetail);
-        return "Detail";
+    public FeedDetail FeedDetail(@PathVariable Long feedId,@RequestParam("userId") Long userId){
+        return this.feedService.GetDetail(feedId,userId);
+
     }
 
 

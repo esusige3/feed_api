@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {
-    @RequestMapping("/feed")
-    public String hello(){
-        return "Feed";
-    }
+
 
 }

@@ -14,24 +14,25 @@ public class CommentController {
     @Autowired
     private IFeedCommentService feedCommentService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<FeedComment> ListComments(@PathVariable Long feedId){
         return this.feedCommentService.ListComments(feedId);
     }
 
     @DeleteMapping("/{commentId}")
-    public void DeleteComment(@PathVariable Long commentId){
-        this.feedCommentService.DeleteComment(commentId);
+    public boolean DeleteComment(@PathVariable Long commentId){
+        return this.feedCommentService.DeleteComment(commentId);
     }
 
-    //@PostMapping("/{feedId}")
-    //public
-
-    @PostMapping("/")
-    public void WriteComment(@RequestBody FeedComment feedComment,@PathVariable Long feedId){
-
-        this.feedCommentService.WriteComment(feedComment,feedId);
+    @PutMapping("")
+    public int ModifyComment(@PathVariable Long feedId,@RequestBody FeedComment feedComment){
+        return this.feedCommentService.ModifyComment(feedComment,feedId);
     }
 
 
+    @PostMapping("")
+    public boolean WriteComment(@RequestBody FeedComment feedComment,@PathVariable Long feedId){
+
+        return this.feedCommentService.WriteComment(feedComment,feedId);
+    }
 }

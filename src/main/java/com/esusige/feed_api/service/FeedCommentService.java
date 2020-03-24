@@ -33,9 +33,10 @@ public class FeedCommentService implements IFeedCommentService {
     @Override
     public boolean WriteComment(FeedComment feedComment,Long feedId) {
         try{
-            Comment comment = new Comment(feedComment.getUserId(),feedId,feedComment.getText());
+           Comment comment = new Comment(feedId,feedComment.getUserId(),feedComment.getText());
 
-             this.commentRepository.save(this.commentRepository.save(comment));
+            this.commentRepository.save(this.commentRepository.save(comment));
+            System.out.println("서비스객체 진입");
             return true;
         }catch (Exception e){
             return false;
@@ -53,8 +54,9 @@ public class FeedCommentService implements IFeedCommentService {
     }
 
     @Override
-    public boolean ModifyComment(FeedComment dto_comment, Long commentId) {
-       return this.commentRepository.modify(dto_comment.getText(),commentId);
+    public int ModifyComment(FeedComment dto_comment, Long feedId) {
+
+       return this.commentRepository.modify(dto_comment.getText(),dto_comment.getId(),feedId);
     }
 
     @Override

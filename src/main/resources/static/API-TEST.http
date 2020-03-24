@@ -1,4 +1,4 @@
-POST http://localhost:8080/feed/1/comment/
+POST http://localhost:8080/feed/1/comment
 Content-Type: application/json
 
 {
@@ -7,16 +7,22 @@ Content-Type: application/json
 }
 
 ###
-
-DELETE http://localhost:8080/Comment/delete?Id=33
-
-###
-
-GET http://localhost:8080/Comment/34
+GET http://localhost:8080/feed/1/comment
 
 ###
 
-GET http://localhost:8080/Comment/count/32
+DELETE http://localhost:8080/feed/1/comment/1
+
+###
+
+PUT http://localhost:8080/feed/1/comment
+Content-Type: application/json
+
+{
+  "id": 34,
+  "text": "다시마 맛있어!"
+}
+
 
 ###
 

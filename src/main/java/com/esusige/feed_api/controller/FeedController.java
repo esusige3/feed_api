@@ -24,23 +24,13 @@ public class FeedController {
     @GetMapping("/{feedId}")
     public FeedDetail FeedDetail(@PathVariable Long feedId,@RequestParam("userId") Long userId){
         return this.feedService.GetDetail(feedId,userId);
-
     }
 
-
-  //  @GetMapping("/")
-    //public List<FeedDetail> ListFeeds(){
-      //  return this.feedService.ListAllFeeds();
-    //}
 
     @GetMapping("/test")
     public void test(){
         this.feedService.GetTest();
     }
 
-   /*  @GetMapping("/{feedId}")
-   public FeedDetail FeedDetail(@RequestParam("userId") Long userId, @PathVariable Long feedId){
-        return this.feedService.GetDetail(feedId,userId);
-    }*/
 
 }

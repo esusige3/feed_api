@@ -37,10 +37,10 @@ public class Comment {
     @NonNull
     private String text;
 
-    @ManyToOne(targetEntity = Feed.class)
-    @JoinColumn(name = "feeds_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Feed feed;
+    //@ManyToOne(targetEntity = Feed.class)
+    //@JoinColumn(name = "feeds_id")
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    //private Feed feed;
 
     @Column(nullable = false)
     @ColumnDefault("0")

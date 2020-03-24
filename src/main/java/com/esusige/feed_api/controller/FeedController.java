@@ -17,12 +17,6 @@ public class FeedController {
     @Autowired
     private IFeedService feedService;
 
-    /*@GetMapping("")
-    public List<FeedDetail> FeedList(Model model,@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,@RequestParam(value = "pageSize",defaultValue = "0")int pageSize){
-
-        return this.feedService.ListFeeds(pageNo,pageSize);
-    }*/
-
 
     @GetMapping("")
     public Page<FeedDetail> GetPagableFeedList(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,@RequestParam(value = "pageSize",defaultValue = "0")int pageSize){
@@ -35,6 +29,8 @@ public class FeedController {
     }
 
 
+
+    //테스트용 피드 생성
     @GetMapping("/test")
     public void test(){
         this.feedService.GetTest();

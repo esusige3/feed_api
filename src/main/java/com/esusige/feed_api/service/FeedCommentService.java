@@ -24,7 +24,7 @@ public class FeedCommentService implements IFeedCommentService {
         List<Comment> commentList = this.commentRepository.findByFeedId(feedId);
         List<FeedComment> dto_commentList = new ArrayList<>();
         commentList.forEach(comment -> {
-            System.out.println("id: "+comment.getId()+" comment: "+comment.getText());
+
             dto_commentList.add(new FeedComment(comment.getId(),comment.getUserId(),comment.getText(),comment.getModified()));
         });
         return dto_commentList;
@@ -33,7 +33,7 @@ public class FeedCommentService implements IFeedCommentService {
     @Override
     public boolean WriteComment(FeedComment feedComment,Long feedId) {
         try{
-           Comment comment = new Comment(feedId,feedComment.getUserId(),feedComment.getText());
+            Comment comment = new Comment(feedId,feedComment.getUserId(),feedComment.getText());
 
             this.commentRepository.save(this.commentRepository.save(comment));
             System.out.println("서비스객체 진입");

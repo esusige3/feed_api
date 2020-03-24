@@ -9,7 +9,7 @@ public interface IFeedCommentService {
 
     List<FeedComment> ListComments(Long feedId);
     boolean WriteComment(FeedComment feedComment,Long feedId);
-    boolean DeleteComment(Long commentId);
+    boolean DeleteComment(Long commentId,Long feedId);
     int ModifyComment(FeedComment comment, Long feedId);
     FeedComment CountComment(Long feedId);
 

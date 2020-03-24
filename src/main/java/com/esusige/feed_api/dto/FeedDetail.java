@@ -6,7 +6,9 @@ import com.esusige.feed_api.domain.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,7 +28,7 @@ public class FeedDetail {
     private int sharedCount;
     private int likeCount;
 
-    private LocalDateTime updatedAt;
+    ///private LocalDateTime updated;
 
 
 

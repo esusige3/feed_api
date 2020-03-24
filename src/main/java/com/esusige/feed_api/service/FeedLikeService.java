@@ -20,12 +20,14 @@ public class FeedLikeService implements IFeedLikeService {
     public FeedLike Like(Long feedId, Long userId) {
         Like like = new Like(feedId,userId);
         this.likeRepository.save(like);
+        this.likeRepository.SetLikeCount(CountLikeAnInt(feedId),feedId);
         return CountLike(feedId);
     }
 
     @Override
     public FeedLike Dislike(Long feedId, Long userId) {
         this.likeRepository.deleteByFeedIdAndUserId(feedId,userId);
+        this.likeRepository.SetLikeCount(CountLikeAnInt(feedId),feedId);
         return CountLike(feedId);
     }
 
@@ -38,11 +40,16 @@ public class FeedLikeService implements IFeedLikeService {
         return false;
     }
 
+
     @Override
-    public FeedLike CountLike(Long feedId) {
+    public FeedLike CountLike(Long feedId){
         FeedLike feedLike = new FeedLike();
-        feedLike.setLikeCount(this.likeRepository.countByFeedId(feedId));
+        feedLike.setLikeCount(CountLikeAnInt(feedId));
         return feedLike;
+    }
+
+    private int CountLikeAnInt(Long feedId){
+        return this.likeRepository.countByFeedId(feedId);
     }
 
 

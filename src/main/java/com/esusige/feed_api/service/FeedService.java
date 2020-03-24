@@ -10,10 +10,15 @@ import com.esusige.feed_api.service.interfaces.IFeedLikeService;
 import com.esusige.feed_api.service.interfaces.IFeedService;
 import com.esusige.feed_api.service.interfaces.IFeedShareService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 public class FeedService implements IFeedService {
@@ -56,9 +61,25 @@ public class FeedService implements IFeedService {
 
 
     @Override
-    public List<FeedDetail> ListFeeds(int pageNo,int pageSize) {
+    public Page<FeedDetail> ListFeeds(int pageNo, int pageSize) {
         List<Feed> feedList = this.dao_feed.findAll();
-        List<FeedDetail> dto_feedList = new ArrayList<>();
+        PageRequest pageRequest = PageRequest.of(pageNo,pageSize,Sort.Direction.DESC,"updatedAt");
+        Page<Feed> entities = this.dao_feed.findAll(pageRequest);
+        Page<FeedDetail> dtoPage = entities.map(new Function<Feed, FeedDetail>() {
+            @Override
+            public FeedDetail apply(Feed feed) {
+                FeedDetail dto;
+                dto = new FeedDetail(feed.getId(),feed.getMD_title(),feed.getMD_image(),feed.getImageList(),feed.getText(),
+                        null,
+                        feed.getCommentCount(),
+                        feed.getSharedCount(),
+                        feed.getLikeCount());
+                return dto;
+            }
+        });
+
+
+        /*Page<FeedDetail> dto_feedList = new
         feedList.forEach(feed -> {
 
             //System.out.println("id: "+comment.getId()+" comment: "+comment.getComment());
@@ -71,7 +92,9 @@ public class FeedService implements IFeedService {
             System.out.println("Feed 처리");
         });
 
-        return dto_feedList;
+        Pageable pageable = PageRequest.of(pageNo,pageSize, new Sort(Sort.Direction.DESC,""))*/
+
+        return dtoPage;
     }
 
     @Override
@@ -82,10 +105,9 @@ public class FeedService implements IFeedService {
 
                FeedDetail dto_feed = new FeedDetail(feed.getId(), feed.getMD_title(), feed.getMD_image(), feed.getImageList(),feed.getText(),
                        this.feedLikeService.CheckOwnLike(feedId,userId),
-                       this.feedCommentService.CountComment(feedId).getCommentCount(),
-                       this.feedShareService.CountShare(feedId).getSharedCount(),
-                       this.feedLikeService.CountLike(feedId).getLikeCount(),
-                       feed.getUpdated());
+                       feed.getCommentCount(),
+                       feed.getSharedCount(),
+                       feed.getLikeCount());
                return dto_feed;
            }
            return null;

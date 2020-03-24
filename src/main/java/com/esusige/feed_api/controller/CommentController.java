@@ -20,8 +20,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public boolean DeleteComment(@PathVariable Long commentId){
-        return this.feedCommentService.DeleteComment(commentId);
+    public boolean DeleteComment(@PathVariable Long feedId,@PathVariable Long commentId){
+        return this.feedCommentService.DeleteComment(commentId,feedId);
     }
 
     @PutMapping("")

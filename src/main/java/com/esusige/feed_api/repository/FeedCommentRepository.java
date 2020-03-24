@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface FeedCommentRepository extends JpaRepository<Comment,Long> {
+
     List<Comment> findByFeedId(Long feedId);
     int countByFeedId(Long feedId);
 
@@ -17,4 +18,8 @@ public interface FeedCommentRepository extends JpaRepository<Comment,Long> {
     @Query(value = "UPDATE Comment c SET c.text=:text WHERE c.id=:id and c.feedId=:feedId")
     int modify(@Param("text") String text, @Param("id") Long commentId,@Param("feedId") Long feedId);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update Feed f set f.commentCount=:count where f.id=:id")
+    int SetCommentCount(@Param("count") int count, @Param("id") Long feedId);
 }

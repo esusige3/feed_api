@@ -37,6 +37,7 @@ public class FeedCommentService implements IFeedCommentService {
 
             this.commentRepository.save(this.commentRepository.save(comment));
             System.out.println("서비스객체 진입");
+            this.commentRepository.SetCommentCount(CountCommentAnInt(feedId),feedId);
             return true;
         }catch (Exception e){
             return false;
@@ -44,10 +45,11 @@ public class FeedCommentService implements IFeedCommentService {
     }
 
     @Override
-    public boolean DeleteComment(Long commentId) {
+    public boolean DeleteComment(Long commentId,Long feedId) {
         Optional<Comment> commentList = this.commentRepository.findById(commentId);
         if(commentList.isPresent()){
             this.commentRepository.deleteById(commentId);
+            this.commentRepository.SetCommentCount(CountCommentAnInt(feedId),feedId);
             return true;
         }
         return false;
@@ -61,8 +63,14 @@ public class FeedCommentService implements IFeedCommentService {
 
     @Override
     public FeedComment CountComment(Long feedId) {
-        FeedComment count = new FeedComment();
-        count.setCommentCount(this.commentRepository.countByFeedId(feedId));
-        return count;
+        FeedComment feedComment = new FeedComment();
+        feedComment.setCommentCount(CountCommentAnInt(feedId));
+        return feedComment;
+
     }
+
+    private int CountCommentAnInt(Long feedId){
+        return this.commentRepository.countByFeedId(feedId);
+    }
+
 }

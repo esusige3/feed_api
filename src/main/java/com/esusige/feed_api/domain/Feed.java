@@ -3,6 +3,7 @@ package com.esusige.feed_api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -39,16 +40,29 @@ public class Feed {
     @JoinColumn(name="feed_id")
     private List<Image> imageList;
 
+    @Column(name = "commentCount")
+    @ColumnDefault("0")
+    private int commentCount;
+
+    @Column(name = "likeCount")
+    @ColumnDefault("0")
+    private int likeCount;
+
+
+    @Column(name = "sharedCount")
+    @ColumnDefault("0")
+    private int sharedCount;
+
     //private List<String> tags;
 
     @CreationTimestamp
     @Column(updatable = false,nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime created;
 
     @UpdateTimestamp
     @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime updated;
 
 

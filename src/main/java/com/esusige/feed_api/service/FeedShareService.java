@@ -18,16 +18,21 @@ public class FeedShareService implements IFeedShareService {
     public FeedShared CountShare(Long feedId) {
 
         FeedShared feedShared = new FeedShared();
-        feedShared.setSharedCount(this.feedShareRepository.countByFeedId(feedId));
+        feedShared.setSharedCount(CountShareAnInt(feedId));
 
         return feedShared;
+    }
+
+    private int CountShareAnInt(Long feedId){
+        return this.feedShareRepository.countByFeedId(feedId);
     }
 
     @Override
     public FeedShared AddShare(Long feedId, Long userId){
             Share share = new Share(feedId,userId);
-            feedShareRepository.save(share);
+            this.feedShareRepository.save(share);
             System.out.println("Facebook Shared!");
+            this.feedShareRepository.SetSharedCount(CountShareAnInt(feedId),feedId);
         return CountShare(feedId);
     }
 }

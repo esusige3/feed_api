@@ -9,6 +9,9 @@ import com.esusige.feed_api.service.interfaces.IFeedCommentService;
 import com.esusige.feed_api.service.interfaces.IFeedLikeService;
 import com.esusige.feed_api.service.interfaces.IFeedService;
 import com.esusige.feed_api.service.interfaces.IFeedShareService;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +38,8 @@ public class FeedService implements IFeedService {
     @Autowired
     private IFeedLikeService feedLikeService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -62,41 +67,17 @@ public class FeedService implements IFeedService {
 
     @Override
     public Page<FeedDetail> ListFeeds(int pageNo, int pageSize) {
-        List<Feed> feedList = this.dao_feed.findAll();
-        PageRequest pageRequest = PageRequest.of(pageNo,pageSize,Sort.Direction.DESC,"updatedAt");
+        //List<Feed> feedList = this.dao_feed.findAll();
+        PageRequest pageRequest = PageRequest.of(pageNo,pageSize,Sort.Direction.DESC,"updated");
         Page<Feed> entities = this.dao_feed.findAll(pageRequest);
-        Page<FeedDetail> dtoPage = entities.map(new Function<Feed, FeedDetail>() {
-            @Override
-            public FeedDetail apply(Feed feed) {
-                FeedDetail dto;
-                dto = new FeedDetail(feed.getId(),feed.getMD_title(),feed.getMD_image(),feed.getImageList(),feed.getText(),
-                        null,
-                        feed.getCommentCount(),
-                        feed.getSharedCount(),
-                        feed.getLikeCount());
-                return dto;
-            }
-        });
-
-
-        /*Page<FeedDetail> dto_feedList = new
-        feedList.forEach(feed -> {
-
-            //System.out.println("id: "+comment.getId()+" comment: "+comment.getComment());
-            dto_feedList.add(new FeedDetail(feed.getId(),feed.getMD_title(),feed.getMD_image(),feed.getImageList(),feed.getText(),
-                    null,
-                    this.feedCommentService.CountComment(feed.getId()).getCommentCount(),
-                    this.feedShareService.CountShare(feed.getId()).getSharedCount(),
-                    this.feedLikeService.CountLike(feed.getId()).getLikeCount(),
-                    feed.getUpdated()));
-            System.out.println("Feed 처리");
-        });
-
-        Pageable pageable = PageRequest.of(pageNo,pageSize, new Sort(Sort.Direction.DESC,""))*/
+        Page<FeedDetail> dtoPage = mapEntityPageIntoDtoPage(entities,FeedDetail.class);
 
         return dtoPage;
     }
 
+    public <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
+        return entities.map(objectEntity-> modelMapper.map(objectEntity, dtoClass));
+    }
     @Override
     public FeedDetail GetDetail(Long feedId,Long userId) {
         try{
@@ -107,7 +88,8 @@ public class FeedService implements IFeedService {
                        this.feedLikeService.CheckOwnLike(feedId,userId),
                        feed.getCommentCount(),
                        feed.getSharedCount(),
-                       feed.getLikeCount());
+                       feed.getLikeCount(),
+                       feed.getUpdated(), feed.getCreated());
                return dto_feed;
            }
            return null;

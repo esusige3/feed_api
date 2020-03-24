@@ -89,7 +89,8 @@ public class FeedService implements IFeedService {
                        feed.getCommentCount(),
                        feed.getSharedCount(),
                        feed.getLikeCount(),
-                       feed.getUpdated(), feed.getCreated());
+                       feed.getUpdated(),
+                       feed.getCreated());
                return dto_feed;
            }
            return null;

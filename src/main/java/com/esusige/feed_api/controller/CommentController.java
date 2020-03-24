@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/feeds/{feedId}/comments")
+@RequestMapping("/feed/{feedId}/comment")
 public class CommentController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class CommentController {
     //@PostMapping("/{feedId}")
     //public
 
-    @PostMapping("/write")
+    @PostMapping("/")
     public void WriteComment(@RequestBody FeedComment feedComment,@PathVariable Long feedId){
 
         this.feedCommentService.WriteComment(feedComment,feedId);

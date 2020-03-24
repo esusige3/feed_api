@@ -12,7 +12,7 @@ public class ShareController {
     @Autowired
     private IFeedShareService feedShareService;
 
-    @PutMapping("/Like")
+    @PutMapping("/Share")
     public FeedShared Share(@PathVariable Long feedId, @RequestParam("userId") Long userId){
         return feedShareService.AddShare(feedId,userId);
     }

@@ -28,9 +28,7 @@ Content-Type: application/json
 
 GET http://localhost:8080/feed?pageNo=0&pageSize=5
 
-###
 
-GET http://localhost:8080/init
 
 ###
 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ConfigurationBeanFactory {
-
+    //PRTEST
     @Bean
     public ModelMapper modellMapper(){
         return new ModelMapper();

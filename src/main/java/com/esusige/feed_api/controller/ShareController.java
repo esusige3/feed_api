@@ -17,6 +17,6 @@ public class ShareController {
         return feedShareService.AddShare(feedId,userId);
     }
 
-
+    //공유가능
 
 }
